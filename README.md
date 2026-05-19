@@ -96,10 +96,25 @@ These results indicate strong predictive performance on historical economic data
 The Streamlit dashboard includes:
 
 ✅ Inflation prediction system  
+
+<img width="1895" height="1015" alt="home_dashboard png" src="https://github.com/user-attachments/assets/10a746c0-c31b-4e62-a673-d313ac8c24a6" />
+
 ✅ Economic risk assessment  
-✅ Professional data visualization  
+
+<img width="1280" height="584" alt="risk_assessment png" src="https://github.com/user-attachments/assets/05dd2349-c754-4a5c-85dc-7605822e8885" />
+
+✅ Professional data visualization 
+
+<img width="1259" height="657" alt="economic_chart png" src="https://github.com/user-attachments/assets/8b39825d-b4b8-494d-b1c3-4107228170ef" />
+
 ✅ Interactive user inputs  
+
+<img width="1402" height="553" alt="Screenshot 2026-05-19 092754" src="https://github.com/user-attachments/assets/c24e25e3-143d-459e-a2a7-585e0fa61ce8" />
+
 ✅ Economic interpretation insights  
+
+<img width="1230" height="357" alt="prediction_result png" src="https://github.com/user-attachments/assets/d46827f1-bd67-4d4b-995b-2f5c53a655b9" />
+
 
 ---
 
