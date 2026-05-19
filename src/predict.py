@@ -3,7 +3,9 @@ import pandas as pd
 
 
 def load_model():
-    model = joblib.load("models/inflation_model.pkl")
+    model = joblib.load(
+        "models/inflation_model.pkl"
+    )
     return model
 
 
@@ -11,22 +13,32 @@ def predict_inflation(
     pump_price,
     cpi_food,
     cpi_energy,
-    cpi_transport,
-    cpi_health,
-    cpi_education,
-    production
+    cpi_transport
 ):
 
     model = load_model()
 
+    # --------------------------------
+    # Economic Pressure Score
+    # --------------------------------
+    economic_pressure_score = (
+    0.25 * pump_price +
+    0.35 * cpi_food +
+    0.25 * cpi_transport +
+    0.15 * cpi_energy
+)
+
+    # --------------------------------
+    # Model Features
+    # --------------------------------
     features = pd.DataFrame({
         "Pump_Price": [pump_price],
         "CPI_Food": [cpi_food],
         "CPI_Energy": [cpi_energy],
         "CPI_Transport": [cpi_transport],
-        "CPI_Health": [cpi_health],
-        "CPI_Education": [cpi_education],
-        "Production": [production]
+        "Economic_Pressure_Score": [
+            economic_pressure_score
+        ]
     })
 
     prediction = model.predict(features)

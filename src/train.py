@@ -57,6 +57,17 @@ df["Pump_Price"] = df["Pump_Price"].fillna(
 
 
 # -----------------------------
+# Economic Pressure Score
+# -----------------------------
+df["Economic_Pressure_Score"] = (
+    0.25 * df["Pump_Price"] +
+    0.35 * df["CPI_Food"] +
+    0.25 * df["CPI_Transport"] +
+    0.15 * df["CPI_Energy"]
+)
+
+
+# -----------------------------
 # Features & Target
 # -----------------------------
 X = df[
@@ -65,13 +76,17 @@ X = df[
         "CPI_Food",
         "CPI_Energy",
         "CPI_Transport",
-        "CPI_Health",
-        "CPI_Education",
-        "Production"
+        "Economic_Pressure_Score"
     ]
 ]
 
 y = df["Inflation_Rate"]
+
+
+# -----------------------------
+# Remove Missing Values
+# -----------------------------
+df = df.dropna()
 
 
 # -----------------------------
@@ -89,7 +104,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 # Train Model
 # -----------------------------
 model = RandomForestRegressor(
-    n_estimators=100,
+    n_estimators=200,
+    max_depth=8,
     random_state=42
 )
 
@@ -108,13 +124,33 @@ predictions = model.predict(X_test)
 mae = mean_absolute_error(y_test, predictions)
 r2 = r2_score(y_test, predictions)
 
-print(f"MAE: {mae}")
-print(f"R2 Score: {r2}")
+print(f"\nMAE: {mae:.4f}")
+print(f"R2 Score: {r2:.4f}")
+
+
+# -----------------------------
+# Feature Importance
+# -----------------------------
+importance = pd.DataFrame({
+    "Feature": X.columns,
+    "Importance": model.feature_importances_
+})
+
+print("\nFeature Importance:")
+print(
+    importance.sort_values(
+        by="Importance",
+        ascending=False
+    )
+)
 
 
 # -----------------------------
 # Save model
 # -----------------------------
-joblib.dump(model, "models/inflation_model.pkl")
+joblib.dump(
+    model,
+    "models/inflation_model.pkl"
+)
 
-print("Model saved successfully!")
+print("\nModel saved successfully!")

@@ -25,18 +25,17 @@ st.info(
 st.markdown("""
 Predict inflation trends using Machine Learning and economic indicators.
 
-This system analyzes:
+### Key Economic Indicators:
+- ⛽ Pump Price
+- 🍲 Food CPI
+- ⚡ Energy CPI
+- 🚚 Transport CPI
 
-- Fuel (Pump) Price
-- Food CPI
-- Energy CPI
-- Transport CPI
-- Health CPI
-- Education CPI
-- Oil Production
+This system estimates how fuel and consumer prices influence inflation in Nigeria.
 """)
 
 st.markdown("---")
+
 
 # --------------------------------
 # Sidebar
@@ -47,7 +46,7 @@ st.sidebar.write("""
 This ML system predicts inflation trends
 using Nigerian economic indicators.
 
-Use cases:
+### Use Cases
 - Economists
 - Researchers
 - Policymakers
@@ -60,14 +59,14 @@ st.sidebar.markdown("---")
 st.sidebar.write("""
 📊 Economic Insight:
 
-Inflation is affected by:
+Inflation in Nigeria is highly influenced by:
 
 - Fuel prices
+- Food inflation
 - Transport cost
 - Energy cost
-- Food prices
-- Economic productivity
 """)
+
 
 # --------------------------------
 # User Inputs
@@ -75,46 +74,29 @@ Inflation is affected by:
 st.subheader("📥 Economic Inputs")
 
 pump_price = st.number_input(
-    "Pump Price (₦)",
+    "⛽ Pump Price (₦)",
     min_value=0.0,
     value=950.0
 )
 
 cpi_food = st.number_input(
-    "Food CPI",
+    "🍲 Food CPI",
     min_value=0.0,
     value=40.0
 )
 
 cpi_energy = st.number_input(
-    "Energy CPI",
+    "⚡ Energy CPI",
     min_value=0.0,
     value=35.0
 )
 
 cpi_transport = st.number_input(
-    "Transport CPI",
+    "🚚 Transport CPI",
     min_value=0.0,
     value=28.0
 )
 
-cpi_health = st.number_input(
-    "Health CPI",
-    min_value=0.0,
-    value=30.0
-)
-
-cpi_education = st.number_input(
-    "Education CPI",
-    min_value=0.0,
-    value=27.0
-)
-
-production = st.number_input(
-    "Oil Production",
-    min_value=0.0,
-    value=1.8
-)
 
 # --------------------------------
 # Charts
@@ -126,16 +108,12 @@ data = {
     "Indicator": [
         "Food CPI",
         "Energy CPI",
-        "Transport CPI",
-        "Health CPI",
-        "Education CPI"
+        "Transport CPI"
     ],
     "Value": [
         cpi_food,
         cpi_energy,
-        cpi_transport,
-        cpi_health,
-        cpi_education
+        cpi_transport
     ]
 }
 
@@ -153,12 +131,11 @@ ax.set_ylabel("Index Value")
 
 st.pyplot(fig)
 
+
 # --------------------------------
 # Prediction
 # --------------------------------
 st.markdown("---")
-
-prediction = None
 
 if st.button("Predict Inflation"):
 
@@ -166,10 +143,7 @@ if st.button("Predict Inflation"):
         pump_price,
         cpi_food,
         cpi_energy,
-        cpi_transport,
-        cpi_health,
-        cpi_education,
-        production
+        cpi_transport
     )
 
     st.success(
@@ -177,12 +151,12 @@ if st.button("Predict Inflation"):
     )
 
     st.metric(
-        "Estimated Inflation",
-        f"{prediction:.2f}%"
-    )
+    "Predicted Inflation Pressure",
+    f"{prediction:.2f}%"
+)
 
     st.caption(
-        "Prediction generated using Random Forest Machine Learning model."
+        "Prediction generated using Linear Regression Machine Learning model."
     )
 
     # --------------------------------
@@ -223,7 +197,7 @@ if st.button("Predict Inflation"):
     elif prediction < 30:
         st.write("""
         High inflation pressure detected.
-        Transport, food, and energy costs may rise significantly.
+        Fuel, transport, and food costs may rise significantly.
         Businesses should prepare for pricing adjustments.
         """)
 
@@ -234,11 +208,16 @@ if st.button("Predict Inflation"):
         Businesses and households may face substantial cost increases.
         """)
 
+
 # --------------------------------
 # Footer
 # --------------------------------
 st.markdown("---")
 
 st.caption(
-    "Built by Gbolahan | Economic Intelligence ML Project 🚀"
+    "Built by Gbolahan | Nigeria Inflation Intelligence System 🚀"
+)
+
+st.caption(
+    "Disclaimer: Predictions are based on historical economic patterns and should be interpreted as economic estimates, not financial or investment advice."
 )
